@@ -12,14 +12,14 @@ An integration application consisting of Multiple services working in combinatio
 
 **Products and Projects**
 
-    • OpenShift Container Platform
-    • Red Hat 3scale API Management
-    • Red Hat Fuse
-    • Apicurio
-    • MySQL Database
-    • Red Hat AMQ
-    • Node.js (RHOAR) Web Application
-    • Jenkins for CICD
+	• OpenShift Container Platform
+	• Red Hat 3scale API Management
+	• Red Hat Fuse
+	• Apicurio
+	• MySQL Database
+	• Red Hat AMQ
+	• Node.js (RHOAR) Web Application
+	• Jenkins for CICD
 
 
 ![alt text](images/image2.png "outline 2")
@@ -27,14 +27,14 @@ An integration application consisting of Multiple services working in combinatio
 
 
  Steps
- 
-     • Design an application using Apicurio, Fuse, AMQ, and 3Scale.
-     • Design API with Apicurio, integrate API with Fuse/Camel.
-     • Source to Image (S2I) build and deploy apps on openshift environment.
-     . Building a pipeline to support automated CI/CD 
-     • Publish API on 3scale environment using 3scaletoolbox jenkins pipeline.
-     • Manage the API through 3scale API management and update the application plan to rate-limit the application.
-     • Design a web application that makes its calls through the 3scale API gateway.
+
+	 • Design an application using Apicurio, Fuse, AMQ, and 3Scale.
+	 • Design API with Apicurio, integrate API with Fuse/Camel.
+	 • Source to Image (S2I) build and deploy apps on openshift environment.
+	 . Building a pipeline to support automated CI/CD
+	 • Publish API on 3scale environment using 3scaletoolbox jenkins pipeline.
+	 • Manage the API through 3scale API management and update the application plan to rate-limit the application.
+	 • Design a web application that makes its calls through the 3scale API gateway.
 
 ## Application Environment
 
@@ -45,7 +45,7 @@ This demo contains below applications.
    3. [Alert Service Application ](https://github.com/rh-integration/IntegrationApp-Automation/tree/master/fuse-alert-service)
    4. [Node.js Web application](https://github.com/rh-integration/IntegrationApp-Automation/tree/master/nodejsalert-ui)
    5. [3scale Toolbox Jenkins Pipeline](https://github.com/rh-integration/IntegrationApp-Automation/tree/master/cicd-3scale).
-     
+
 
 
 ## Automation of Applications in OpenShift
@@ -54,10 +54,10 @@ This demo contains below applications.
 
 The following instructions assuming that you are using OpenShift. But the same could be applied to Minishift as well.
 
-Download the source codes from git repository by either forking, or simply cloning it. 
+Download the source codes from git repository by either forking, or simply cloning it.
 
 ```
-git clone https://github.com/rh-integration/IntegrationApp-Automation.git 
+git clone https://github.com/rh-integration/IntegrationApp-Automation.git
 
 ```
 Assume you have OpenShift cluster ready and running.
@@ -69,7 +69,7 @@ oc login <OpenShift cluster url> --token=<OpenShift user login token>
 ```
 
 Setup `rh-dev`, `rh-test` and `rh-prod` OpenShift projects as the target environment (you may skip this step if you already have the environment ready, and you can also change projects name inside env.sh ).
-    
+
 ```sh
 
 ./setup/setup.sh
@@ -83,13 +83,13 @@ You can also customize the pipelines by changing their parameters.  Different te
 NAME                                DESCRIPTION         GENERATOR           VALUE
 GIT_REPO                                                                    https://github.com/rh-integration/IntegrationApp-Automation
 GIT_BRANCH                                                                  master
-DEV_PROJECT                                                                 
-TEST_PROJECT                                                                
-PROD_PROJECT                                                                
+DEV_PROJECT
+TEST_PROJECT
+PROD_PROJECT
 MYSQL_USER                                                                  dbuser
 MYSQL_PWD                                                                   password
-IMAGE_REGISTRY                                                              docker-registry.default.svc:5000
-IMAGE_NAMESPACE                                                             
+IMAGE_REGISTRY                                                              image-registry.openshift-image-registry.svc:5000
+IMAGE_NAMESPACE
 PRIVATE_BASE_URL                                                            http://maingateway-service-rh-test.app.middleware.ocp.cloud.lab.eng.bos.redhat.com
 PRODUCTION_PUBLIC_BASE_URL                                                  https://3scalefuse.app.middleware.ocp.cloud.lab.eng.bos.redhat.com
 STAGING_PUBLIC_BASE_URL                                                     https://3scalefuse-staging.app.middleware.ocp.cloud.lab.eng.bos.redhat.com
@@ -149,31 +149,31 @@ oc delete bc publish-api-3scale
 ```sh
 
 # import fuse-user-service pipeline
-oc new-app -f fuse-user-service/src/main/resources/pipeline-app-build.yml -p IMAGE_REGISTRY=docker-registry.default.svc:5000 -p IMAGE_NAMESPACE=rh-dev -p DEV_PROJECT=rh-dev -p TEST_PROJECT=rh-test -p PROD_PROJECT=rh-prod
+oc new-app -f fuse-user-service/src/main/resources/pipeline-app-build.yml -p IMAGE_REGISTRY=image-registry.openshift-image-registry.svc:5000 -p IMAGE_NAMESPACE=rh-dev -p DEV_PROJECT=rh-dev -p TEST_PROJECT=rh-test -p PROD_PROJECT=rh-prod
 
 # import maingateway-service pipeline
-oc new-app -f maingateway-service/src/main/resources/pipeline-app-build.yml -p IMAGE_REGISTRY=docker-registry.default.svc:5000 -p IMAGE_NAMESPACE=rh-dev -p DEV_PROJECT=rh-dev -p TEST_PROJECT=rh-test -p PROD_PROJECT=rh-prod
+oc new-app -f maingateway-service/src/main/resources/pipeline-app-build.yml -p IMAGE_REGISTRY=image-registry.openshift-image-registry.svc:5000 -p IMAGE_NAMESPACE=rh-dev -p DEV_PROJECT=rh-dev -p TEST_PROJECT=rh-test -p PROD_PROJECT=rh-prod
 
 # import nodejsalert-ui pipeline
-oc new-app -f nodejsalert-ui/resources/pipeline-app-build.yml -p IMAGE_REGISTRY=docker-registry.default.svc:5000 -p IMAGE_NAMESPACE=rh-dev -p DEV_PROJECT=rh-dev -p TEST_PROJECT=rh-test -p PROD_PROJECT=rh-prod
+oc new-app -f nodejsalert-ui/resources/pipeline-app-build.yml -p IMAGE_REGISTRY=image-registry.openshift-image-registry.svc:5000 -p IMAGE_NAMESPACE=rh-dev -p DEV_PROJECT=rh-dev -p TEST_PROJECT=rh-test -p PROD_PROJECT=rh-prod
 
 # import fuse-alert-service pipeline
-oc new-app -f fuse-alert-service/src/main/resources/pipeline-app-build.yml -p IMAGE_REGISTRY=docker-registry.default.svc:5000 -p IMAGE_NAMESPACE=rh-dev -p DEV_PROJECT=rh-dev -p TEST_PROJECT=rh-test -p PROD_PROJECT=rh-prod
+oc new-app -f fuse-alert-service/src/main/resources/pipeline-app-build.yml -p IMAGE_REGISTRY=image-registry.openshift-image-registry.svc:5000 -p IMAGE_NAMESPACE=rh-dev -p DEV_PROJECT=rh-dev -p TEST_PROJECT=rh-test -p PROD_PROJECT=rh-prod
 
 # import aggregated-pipeline
-oc new-app -f pipelinetemplates/pipeline-aggregated-build.yml -p IMAGE_REGISTRY=docker-registry.default.svc:5000 -p IMAGE_NAMESPACE=rh-dev -p DEV_PROJECT=rh-dev -p TEST_PROJECT=rh-test -p PROD_PROJECT=rh-prod  -p PRIVATE_BASE_URL=http://maingateway-service-rh-test.app.middleware.ocp.cloud.lab.eng.bos.redhat.com -p PUBLIC_PRODUCTION_WILDCARD_DOMAIN=app.middleware.ocp.cloud.lab.eng.bos.redhat.com -p PUBLIC_STAGING_WILDCARD_DOMAIN=staging.app.middleware.ocp.cloud.lab.eng.bos.redhat.com -p DEVELOPER_ACCOUNT_ID=developer
+oc new-app -f pipelinetemplates/pipeline-aggregated-build.yml -p IMAGE_REGISTRY=image-registry.openshift-image-registry.svc:5000 -p IMAGE_NAMESPACE=rh-dev -p DEV_PROJECT=rh-dev -p TEST_PROJECT=rh-test -p PROD_PROJECT=rh-prod  -p PRIVATE_BASE_URL=http://maingateway-service-rh-test.app.middleware.ocp.cloud.lab.eng.bos.redhat.com -p PUBLIC_PRODUCTION_WILDCARD_DOMAIN=app.middleware.ocp.cloud.lab.eng.bos.redhat.com -p PUBLIC_STAGING_WILDCARD_DOMAIN=staging.app.middleware.ocp.cloud.lab.eng.bos.redhat.com -p DEVELOPER_ACCOUNT_ID=developer
 
 # import 3scale pipeline
-oc new-app -f cicd-3scale/3scaletoolbox/pipeline-template.yaml  -p IMAGE_NAMESPACE=rh-dev -p DEV_PROJECT=rh-dev -p TEST_PROJECT=rh-test -p PROD_PROJECT=rh-prod  -p PRIVATE_BASE_URL=http://maingateway-service-rh-test.app.middleware.ocp.cloud.lab.eng.bos.redhat.com -p PUBLIC_PRODUCTION_WILDCARD_DOMAIN=app.middleware.ocp.cloud.lab.eng.bos.redhat.com -p PUBLIC_STAGING_WILDCARD_DOMAIN=staging.app.middleware.ocp.cloud.lab.eng.bos.redhat.com -p DEVELOPER_ACCOUNT_ID=developer 
+oc new-app -f cicd-3scale/3scaletoolbox/pipeline-template.yaml  -p IMAGE_NAMESPACE=rh-dev -p DEV_PROJECT=rh-dev -p TEST_PROJECT=rh-test -p PROD_PROJECT=rh-prod  -p PRIVATE_BASE_URL=http://maingateway-service-rh-test.app.middleware.ocp.cloud.lab.eng.bos.redhat.com -p PUBLIC_PRODUCTION_WILDCARD_DOMAIN=app.middleware.ocp.cloud.lab.eng.bos.redhat.com -p PUBLIC_STAGING_WILDCARD_DOMAIN=staging.app.middleware.ocp.cloud.lab.eng.bos.redhat.com -p DEVELOPER_ACCOUNT_ID=developer
 
 
 ```
-#### Set the  IMAGE_REGISTRY in pipeline 
+#### Set the  IMAGE_REGISTRY in pipeline
 
-if you're using openshift 4 plus environment, then set the image registry 
+if you're using openshift 4 plus environment, then set the image registry
 
-```image-registry.openshift-image-registry.svc:5000```else set defualt from docker registry```docker-registry.default.svc:5000``` 
- 
+```image-registry.openshift-image-registry.svc:5000```else set defualt from docker registry```image-registry.openshift-image-registry.svc:5000```
+
 
 
 
@@ -187,24 +187,24 @@ Before running Pipelines, listed 3scale configuration required to set.
 ```sh
  oc new-app -f apicast-routes-template.yaml -p BASE_NAME=rh-test-3scalefuse  -p MAJOR_VERSION=1 -p WILDCARD_DOMAIN=<openshift_wildcard_domain> -n <3scale_namespace>
  oc new-app -f apicast-routes-template.yaml -p BASE_NAME=rh-prod-3scalefuse  -p MAJOR_VERSION=1 -p WILDCARD_DOMAIN=<openshift_wildcard_domain> -n <3scale_namespace>
- 
+
 * BASE_NAME = project environment name- base name mentioned in Jenkins pipeline
 ```
 
 * set below listed parameters
 
 ```sh
-PUBLIC_PRODUCTION_WILDCARD_DOMAIN                                         
-PUBLIC_STAGING_WILDCARD_DOMAIN                                            
-API_BASE_SYSTEM_NAME                                                      
-SECRET_NAME                                                               
-TARGET_INSTANCE                                                           
-DEVELOPER_ACCOUNT_ID                                                        
+PUBLIC_PRODUCTION_WILDCARD_DOMAIN
+PUBLIC_STAGING_WILDCARD_DOMAIN
+API_BASE_SYSTEM_NAME
+SECRET_NAME
+TARGET_INSTANCE
+DEVELOPER_ACCOUNT_ID
 DISABLE_TLS_VALIDATION  set "yes" to disable TLS validation.
 ```
 * Read [3scale-toolbox Configuration]( https://github.com/rh-integration/3scale-toolbox-jenkins-samples ) and  [3scale-toolbox image setup](https://github.com/rh-integration/IntegrationApp-Automation/tree/master/cicd-3scale#setup)
 
-####  Run pipelines 
+####  Run pipelines
 
 After you have set the parameters and imported all of the pipeline templates, you should have them under `Builds`, `Pipelines` of the selected OpenShift project.
 
@@ -212,10 +212,22 @@ After you have set the parameters and imported all of the pipeline templates, yo
 
 Please start the pipeline from `fuse-user-service-pipeline`, `fuse-alert-service-pipeline`, `maingateway-service-pipeline` ,`nodejsalert-ui-pipeline` and then `publish-api-3scale` to publish API on 3scale.
 
+export PROJ=rh-dev
+oc start-build fuse-user-service-pipeline -n $PROJ --follow
+
+oc start-build fuse-alert-service-pipeline -n $PROJ --follow
+
+oc start-build maingateway-service-pipeline -n $PROJ --follow
+
+oc start-build nodejsalert-ui-pipeline -n $PROJ --follow
+
+oc start-build publish-api-3scale -n $PROJ --follow
+
+
 With `aggregated-pipeline`, you can build the entire application including all of the above modules mentioned. If you choose this pipeline, by default, it will build the entire application, but you will also be asked to select which individual module you want to build.  You will need to make your selection in your Jenkins console.
 
 Once the build is finished, in your OpenShift, go to `rh-test` or `rh-prod`, navigate to `Applications`, `Routes` and click on maingateway-service and nodejsalert-ui route to launch the application.
-You should see the application and it is started with web front-end like this, add 3scale user key and 3scale gatway url and click sendAlert button: 
+You should see the application and it is started with web front-end like this, add 3scale user key and 3scale gatway url and click sendAlert button:
 
 ![Application View](images/application_launch_view.png "Application View")
 
@@ -227,7 +239,7 @@ The following instructions show how to use Jenkins Pipeline to deploy `nodejsale
 
 We will work with `nodejsalert-ui-pipeline`.  Please login to Jenkins console in your OpenShift. Then you should see the pipeline job `rh-dev/nodejsalert-ui-pipeline`.  Click on it and next click on the `Build with Parameters`.  In the parameters input page, input the `SERVICE_VERSION`, check the checkbox for `BLUEGREEN_DEPLOYMENT`, and validate other parameters (default should work if you followed all the instructions in this page). Click on Build button to start the build.
 
-After the build is finished. You should be able to see `nodejsalert-ui-green` services in your `rh-test` as well as `rh-prod` OpenShift projects.  Now you can change your existing nodejsalert-ui route to point to this Green service so that you can verify your new deployment before completely rollout to production. 
+After the build is finished. You should be able to see `nodejsalert-ui-green` services in your `rh-test` as well as `rh-prod` OpenShift projects.  Now you can change your existing nodejsalert-ui route to point to this Green service so that you can verify your new deployment before completely rollout to production.
 
 
 ```
@@ -252,7 +264,5 @@ To clean up all of your environment, you can run the script:
 
 ```sh
  ./setup/delete-setup.sh
- 
+
  ```
-
-
