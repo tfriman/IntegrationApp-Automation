@@ -40,11 +40,11 @@ An integration application consisting of Multiple services working in combinatio
 
 This demo contains below applications.
 
-   1. [Gateway application](https://github.com/rh-integration/IntegrationApp-Automation/tree/master/maingateway-service).
-   2. [User Service application ](https://github.com/rh-integration/IntegrationApp-Automation/tree/master/fuse-user-service)
-   3. [Alert Service Application ](https://github.com/rh-integration/IntegrationApp-Automation/tree/master/fuse-alert-service)
-   4. [Node.js Web application](https://github.com/rh-integration/IntegrationApp-Automation/tree/master/nodejsalert-ui)
-   5. [3scale Toolbox Jenkins Pipeline](https://github.com/rh-integration/IntegrationApp-Automation/tree/master/cicd-3scale).
+   1. [Gateway application](https://github.com/tfriman/IntegrationApp-Automation/tree/master/maingateway-service).
+   2. [User Service application ](https://github.com/tfriman/IntegrationApp-Automation/tree/master/fuse-user-service)
+   3. [Alert Service Application ](https://github.com/tfriman/IntegrationApp-Automation/tree/master/fuse-alert-service)
+   4. [Node.js Web application](https://github.com/tfriman/IntegrationApp-Automation/tree/master/nodejsalert-ui)
+   5. [3scale Toolbox Jenkins Pipeline](https://github.com/tfriman/IntegrationApp-Automation/tree/master/cicd-3scale).
 
 
 
@@ -57,7 +57,7 @@ The following instructions assuming that you are using OpenShift. But the same c
 Download the source codes from git repository by either forking, or simply cloning it.
 
 ```
-git clone https://github.com/rh-integration/IntegrationApp-Automation.git
+git clone https://github.com/tfriman/IntegrationApp-Automation.git
 
 ```
 Assume you have OpenShift cluster ready and running.
@@ -81,7 +81,7 @@ You can also customize the pipelines by changing their parameters.  Different te
 
 ```
 NAME                                DESCRIPTION         GENERATOR           VALUE
-GIT_REPO                                                                    https://github.com/rh-integration/IntegrationApp-Automation
+GIT_REPO                                                                    https://github.com/tfriman/IntegrationApp-Automation
 GIT_BRANCH                                                                  master
 DEV_PROJECT
 TEST_PROJECT
@@ -202,7 +202,7 @@ TARGET_INSTANCE
 DEVELOPER_ACCOUNT_ID
 DISABLE_TLS_VALIDATION  set "yes" to disable TLS validation.
 ```
-* Read [3scale-toolbox Configuration]( https://github.com/rh-integration/3scale-toolbox-jenkins-samples ) and  [3scale-toolbox image setup](https://github.com/rh-integration/IntegrationApp-Automation/tree/master/cicd-3scale#setup)
+* Read [3scale-toolbox Configuration]( https://github.com/tfriman/3scale-toolbox-jenkins-samples ) and  [3scale-toolbox image setup](https://github.com/tfriman/IntegrationApp-Automation/tree/master/cicd-3scale#setup)
 
 ####  Run pipelines
 

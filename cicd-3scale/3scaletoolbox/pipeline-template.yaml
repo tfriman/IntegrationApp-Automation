@@ -70,7 +70,7 @@ objects:
 
 parameters:
 - name: GIT_REPO
-  value: https://github.com/rh-integration/IntegrationApp-Automation.git
+  value: https://github.com/tfriman/IntegrationApp-Automation.git
   required: true
 - name: GIT_BRANCH
   value: master

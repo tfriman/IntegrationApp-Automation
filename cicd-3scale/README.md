@@ -7,7 +7,7 @@ Go to [studio.apicur.io](https://studio.apicur.io/), login and import the openap
 
 * Go to [https://studio.apicur.io/apis/import](https://studio.apicur.io/apis/import)
 * Choose `Import from File/Clipboard`
-* Fill-in the URL field with the raw url of the gateway service (https://github.com/rh-integration/IntegrationApp-Automation/blob/master/maingateway-service/src/spec/openapi-spe.json)
+* Fill-in the URL field with the raw url of the gateway service (https://github.com/tfriman/IntegrationApp-Automation/blob/master/maingateway-service/src/spec/openapi-spe.json)
 * Click `Edit API
 * Click source tab add API Key scheme to secure API
 

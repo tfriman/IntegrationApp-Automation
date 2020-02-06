@@ -252,7 +252,7 @@
       "displayName": "Git Repository URL",
       "description": "The URL of the repository with your application source code.",
       "required": true,
-      "value": "https://github.com/rh-integration/IntegrationApp-Automation.git"
+      "value": "https://github.com/tfriman/IntegrationApp-Automation.git"
     },
     {
       "name": "SOURCE_REPOSITORY_REF",
