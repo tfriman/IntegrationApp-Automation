@@ -206,7 +206,7 @@ def deploy(folderName, projName, openShiftHost, openShiftToken, mysqlUser, mysql
 
     oc project ${projName}
 
-    mvn fabric8:deploy -Dmaven.test.skip=true -Dmysql-service-username=${mysqlUser} -Dmysql-service-password=${mysqlPwd}
+    mvn oc:build oc:resource oc:apply -Dmaven.test.skip=true
     """
 }
 

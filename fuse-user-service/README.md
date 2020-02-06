@@ -159,7 +159,7 @@ It is assumed that:
 The example can be built and run on OpenShift using a single goal, the mysql database should already setup in your environment see the setup.sh file inside setup dir for more details
 
    ```
-   mvn fabric8:deploy -Dmysql-service-username=dbuser -Dmysql-service-password=password
+   mvn oc:build oc:resource oc:apply 
   ```
 
 When the example runs in OpenShift, you can use the OpenShift client tool to inspect the status

@@ -15,6 +15,7 @@
 		<!-- Maven plugin versions -->
 		<maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
 		<maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
+		<jshift.openshift.version>0.1.0</jshift.openshift.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -123,20 +124,12 @@
 					</execution>
 				</executions>
 			</plugin>
-
 			<plugin>
-				<groupId>org.jboss.redhat-fuse</groupId>
-				<artifactId>fabric8-maven-plugin</artifactId>
-				<version>${fuse.version}</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>resource</goal>
-							<goal>build</goal>
-						</goals>
-					</execution>
-				</executions>
+				<groupId>io.jshift</groupId>
+				<artifactId>oc-maven-plugin</artifactId>
+				<version>${jshift.openshift.version}</version>
 			</plugin>
+
 		</plugins>
 	</build>
 	<repositories>
